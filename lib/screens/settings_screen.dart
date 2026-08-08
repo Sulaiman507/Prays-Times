@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import '../providers/theme_provider.dart';
 import '../providers/settings_provider.dart';
 import '../models/prayer_time_model.dart';
-import '../utils/app_constants.dart';
-import '../l10n/app_strings.dart';
 import 'city_selection_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -21,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           isAr ? 'الإعدادات' : 'Settings',
-          style: const TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w700),
+          style: const TextStyle(fontWeight: FontWeight.w700),
         ),
         leading: IconButton(
           icon: Icon(isAr ? Icons.arrow_forward : Icons.arrow_back),
@@ -31,7 +29,6 @@ class SettingsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          // Language Section
           _buildSectionHeader(context, isAr ? 'اللغة' : 'Language', isDark),
           const SizedBox(height: 8),
           _buildSettingCard(
@@ -48,10 +45,7 @@ class SettingsScreen extends StatelessWidget {
               ],
             ),
           ),
-
           const SizedBox(height: 24),
-
-          // Time Format Section
           _buildSectionHeader(context, isAr ? 'صيغة الوقت' : 'Time Format', isDark),
           const SizedBox(height: 8),
           _buildSettingCard(
@@ -80,17 +74,11 @@ class SettingsScreen extends StatelessWidget {
               ],
             ),
           ),
-
           const SizedBox(height: 24),
-
-          // Theme Section
           _buildSectionHeader(context, isAr ? 'المظهر' : 'Appearance', isDark),
           const SizedBox(height: 8),
           _buildThemeOptions(context, themeProvider, isAr, isDark),
-
           const SizedBox(height: 24),
-
-          // City Section
           _buildSectionHeader(context, isAr ? 'المدينة' : 'City', isDark),
           const SizedBox(height: 8),
           _buildSettingCard(
@@ -99,26 +87,16 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.location_city,
             title: isAr ? 'المدينة' : 'City',
             subtitle: settingsProvider.cityName,
-            trailing: Icon(
-              isAr ? Icons.arrow_forward_ios : Icons.arrow_forward_ios,
-              size: 18,
-              color: AppConstants.primaryGreen,
-            ),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 18, color: Color(0xFF1B4332)),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => const CitySelectionScreen(),
-                ),
+                MaterialPageRoute(builder: (_) => const CitySelectionScreen()),
               );
             },
           ),
-
           const SizedBox(height: 24),
-
-          // Calculation Method
-          _buildSectionHeader(
-              context, isAr ? 'طريقة الحساب' : 'Calculation Method', isDark),
+          _buildSectionHeader(context, isAr ? 'طريقة الحساب' : 'Calculation Method', isDark),
           const SizedBox(height: 8),
           _buildSettingCard(
             context,
@@ -126,12 +104,9 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.calculate,
             title: isAr ? 'طريقة الحساب' : 'Calculation Method',
             subtitle: isAr ? 'أم القرى' : 'Umm al-Qura',
-            trailing: Icon(Icons.check_circle, color: AppConstants.gold, size: 20),
+            trailing: const Icon(Icons.check_circle, color: Color(0xFFD4AF37), size: 20),
           ),
-
           const SizedBox(height: 24),
-
-          // About Section
           _buildSectionHeader(context, isAr ? 'حول التطبيق' : 'About', isDark),
           const SizedBox(height: 8),
           _buildSettingCard(
@@ -154,8 +129,7 @@ class SettingsScreen extends StatelessWidget {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w700,
-          color: isDark ? Colors.white54 : AppConstants.primaryGreen.withOpacity(0.7),
-          fontFamily: 'Cairo',
+          color: isDark ? Colors.white54 : const Color(0xFF1B4332).withOpacity(0.7),
         ),
       ),
     );
@@ -175,7 +149,7 @@ class SettingsScreen extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
-          color: isDark ? AppConstants.darkCard : Colors.white,
+          color: isDark ? const Color(0xFF161B22) : Colors.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
@@ -192,9 +166,9 @@ class SettingsScreen extends StatelessWidget {
               height: 40,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: AppConstants.primaryGreen.withOpacity(isDark ? 0.2 : 0.1),
+                color: const Color(0xFF1B4332).withOpacity(isDark ? 0.2 : 0.1),
               ),
-              child: Icon(icon, color: AppConstants.primaryGreen, size: 20),
+              child: Icon(icon, color: const Color(0xFF1B4332), size: 20),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -206,8 +180,7 @@ class SettingsScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: isDark ? Colors.white : AppConstants.darkText,
-                      fontFamily: 'Cairo',
+                      color: isDark ? Colors.white : const Color(0xFF1A1A2E),
                     ),
                   ),
                   if (subtitle != null)
@@ -216,7 +189,6 @@ class SettingsScreen extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 12,
                         color: isDark ? Colors.white54 : Colors.grey,
-                        fontFamily: 'Cairo',
                       ),
                     ),
                 ],
@@ -239,8 +211,8 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppConstants.primaryGreen
-              : (isDark ? AppConstants.darkSurface : Colors.grey.shade200),
+              ? const Color(0xFF1B4332)
+              : (isDark ? const Color(0xFF21262D) : Colors.grey.shade200),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
@@ -249,7 +221,6 @@ class SettingsScreen extends StatelessWidget {
             fontSize: 13,
             fontWeight: FontWeight.w700,
             color: isSelected ? Colors.white : (isDark ? Colors.white70 : Colors.grey),
-            fontFamily: 'Cairo',
           ),
         ),
       ),
@@ -272,8 +243,8 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected
-              ? AppConstants.primaryGreen
-              : (isDark ? AppConstants.darkSurface : Colors.grey.shade200),
+              ? const Color(0xFF1B4332)
+              : (isDark ? const Color(0xFF21262D) : Colors.grey.shade200),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Text(
@@ -282,7 +253,6 @@ class SettingsScreen extends StatelessWidget {
             fontSize: 13,
             fontWeight: FontWeight.w700,
             color: isSelected ? Colors.white : (isDark ? Colors.white70 : Colors.grey),
-            fontFamily: 'Cairo',
           ),
         ),
       ),
@@ -294,7 +264,7 @@ class SettingsScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isDark ? AppConstants.darkCard : Colors.white,
+        color: isDark ? const Color(0xFF161B22) : Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -306,32 +276,11 @@ class SettingsScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          _buildThemeOption(
-            context,
-            themeProvider,
-            ThemeMode.light,
-            Icons.wb_sunny,
-            isAr ? 'فاتح' : 'Light',
-            isDark,
-          ),
+          _buildThemeOption(context, themeProvider, ThemeMode.light, Icons.wb_sunny, isAr ? 'فاتح' : 'Light', isDark),
           const Divider(height: 1),
-          _buildThemeOption(
-            context,
-            themeProvider,
-            ThemeMode.dark,
-            Icons.nightlight_round,
-            isAr ? 'داكن' : 'Dark',
-            isDark,
-          ),
+          _buildThemeOption(context, themeProvider, ThemeMode.dark, Icons.nightlight_round, isAr ? 'داكن' : 'Dark', isDark),
           const Divider(height: 1),
-          _buildThemeOption(
-            context,
-            themeProvider,
-            ThemeMode.system,
-            Icons.settings_brightness,
-            isAr ? 'النظام' : 'System',
-            isDark,
-          ),
+          _buildThemeOption(context, themeProvider, ThemeMode.system, Icons.settings_brightness, isAr ? 'النظام' : 'System', isDark),
         ],
       ),
     );
@@ -348,22 +297,16 @@ class SettingsScreen extends StatelessWidget {
     final isSelected = themeProvider.themeMode == mode;
     return ListTile(
       contentPadding: EdgeInsets.zero,
-      leading: Icon(icon,
-          color: isSelected ? AppConstants.primaryGreen : (isDark ? Colors.white54 : Colors.grey)),
+      leading: Icon(icon, color: isSelected ? const Color(0xFF1B4332) : (isDark ? Colors.white54 : Colors.grey)),
       title: Text(
         label,
         style: TextStyle(
           fontSize: 15,
           fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-          color: isSelected
-              ? AppConstants.primaryGreen
-              : (isDark ? Colors.white : AppConstants.darkText),
-          fontFamily: 'Cairo',
+          color: isSelected ? const Color(0xFF1B4332) : (isDark ? Colors.white : const Color(0xFF1A1A2E)),
         ),
       ),
-      trailing: isSelected
-          ? Icon(Icons.check_circle, color: AppConstants.gold, size: 22)
-          : null,
+      trailing: isSelected ? const Icon(Icons.check_circle, color: Color(0xFFD4AF37), size: 22) : null,
       onTap: () => themeProvider.setTheme(mode),
     );
   }
