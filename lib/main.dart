@@ -74,7 +74,6 @@ class PrayerTimesApp extends StatelessWidget {
         secondary: const Color(0xFFD4AF37),
         surface: const Color(0xFFF8F9FA),
       ),
-      fontFamily: 'Cairo',
       scaffoldBackgroundColor: const Color(0xFFF0F4F0),
       appBarTheme: const AppBarTheme(
         elevation: 0,
@@ -104,7 +103,6 @@ class PrayerTimesApp extends StatelessWidget {
         secondary: const Color(0xFFD4AF37),
         surface: const Color(0xFF1A1A2E),
       ),
-      fontFamily: 'Cairo',
       scaffoldBackgroundColor: const Color(0xFF0D1117),
       appBarTheme: const AppBarTheme(
         elevation: 0,
