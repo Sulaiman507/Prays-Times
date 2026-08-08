@@ -57,9 +57,7 @@ class _HomeScreenState extends State<HomeScreen>
     _calculatePrayerTimes();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-      if (mounted) {
-        setState(() {});
-      }
+      if (mounted) setState(() {});
     });
   }
 
@@ -87,17 +85,11 @@ class _HomeScreenState extends State<HomeScreen>
 
   void _updateNextPrayer() {
     if (_prayerTimes == null) return;
-
     final now = DateTime.now();
     final prayers = [
-      _prayerTimes!.fajr,
-      _prayerTimes!.sunrise,
-      _prayerTimes!.dhuhr,
-      _prayerTimes!.asr,
-      _prayerTimes!.maghrib,
-      _prayerTimes!.isha,
+      _prayerTimes!.fajr, _prayerTimes!.sunrise, _prayerTimes!.dhuhr,
+      _prayerTimes!.asr, _prayerTimes!.maghrib, _prayerTimes!.isha,
     ];
-
     _nextPrayerIndex = prayers.length;
     for (int i = 0; i < prayers.length; i++) {
       if (now.isBefore(prayers[i])) {
@@ -105,28 +97,19 @@ class _HomeScreenState extends State<HomeScreen>
         break;
       }
     }
-
-    if (_nextPrayerIndex >= prayers.length) {
-      _nextPrayerIndex = 0;
-    }
+    if (_nextPrayerIndex >= prayers.length) _nextPrayerIndex = 0;
   }
 
   String _getNextPrayerName(String lang) {
-    final names = lang == 'ar'
-        ? AppConstants.prayerNamesAr
-        : AppConstants.prayerNamesEn;
+    final names = lang == 'ar' ? AppConstants.prayerNamesAr : AppConstants.prayerNamesEn;
     return names[_nextPrayerIndex];
   }
 
   DateTime _getNextPrayerTime() {
     if (_prayerTimes == null) return DateTime.now();
     final prayers = [
-      _prayerTimes!.fajr,
-      _prayerTimes!.sunrise,
-      _prayerTimes!.dhuhr,
-      _prayerTimes!.asr,
-      _prayerTimes!.maghrib,
-      _prayerTimes!.isha,
+      _prayerTimes!.fajr, _prayerTimes!.sunrise, _prayerTimes!.dhuhr,
+      _prayerTimes!.asr, _prayerTimes!.maghrib, _prayerTimes!.isha,
     ];
     return prayers[_nextPrayerIndex];
   }
@@ -141,18 +124,14 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   String _getArabicMonth(int month) {
-    const months = [
-      '', 'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-      'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
-    ];
+    const months = ['', 'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+        'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
     return months[month];
   }
 
   String _getEnglishMonth(int month) {
-    const months = [
-      '', 'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
+    const months = ['', 'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'];
     return months[month];
   }
 
@@ -176,16 +155,13 @@ class _HomeScreenState extends State<HomeScreen>
             child: ListView(
               physics: const AlwaysScrollableScrollPhysics(),
               children: [
-                // Header
                 FadeTransition(
                   opacity: _headerFade,
                   child: SlideTransition(
                     position: _headerSlide,
-                    child: _buildHeader(context, settingsProvider, isDark, isAr, lang),
+                    child: _buildHeader(settingsProvider, isDark, isAr, lang),
                   ),
                 ),
-
-                // Next Prayer Widget
                 if (_prayerTimes != null)
                   NextPrayerWidget(
                     nextPrayerName: _getNextPrayerName(lang),
@@ -193,11 +169,8 @@ class _HomeScreenState extends State<HomeScreen>
                     isDark: isDark,
                     locale: lang,
                   ),
-
-                // Prayer Times List
                 if (_prayerTimes != null)
                   ..._buildPrayerCards(settingsProvider, isDark, isAr, lang),
-
                 const SizedBox(height: 20),
               ],
             ),
@@ -210,50 +183,36 @@ class _HomeScreenState extends State<HomeScreen>
               MaterialPageRoute(builder: (_) => const SettingsScreen()),
             );
           },
-          backgroundColor: AppConstants.primaryGreen,
+          backgroundColor: const Color(0xFF1B4332),
           child: const Icon(Icons.settings, color: Colors.white),
         ),
       ),
     );
   }
 
-  Widget _buildHeader(
-    BuildContext context,
-    SettingsProvider settingsProvider,
-    bool isDark,
-    bool isAr,
-    String lang,
-  ) {
+  Widget _buildHeader(SettingsProvider settingsProvider, bool isDark, bool isAr, String lang) {
     return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
           const SizedBox(height: 10),
-          // Mosque icon
           Container(
             width: 70,
             height: 70,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: const LinearGradient(
-                colors: [
-                  AppConstants.primaryGreen,
-                  AppConstants.secondaryGreen,
-                ],
+                colors: [Color(0xFF1B4332), Color(0xFF2D6A4F)],
               ),
               boxShadow: [
                 BoxShadow(
-                  color: AppConstants.primaryGreen.withOpacity(0.3),
+                  color: const Color(0xFF1B4332).withOpacity(0.3),
                   blurRadius: 20,
                   offset: const Offset(0, 8),
                 ),
               ],
             ),
-            child: const Icon(
-              Icons.mosque,
-              color: AppConstants.gold,
-              size: 36,
-            ),
+            child: const Icon(Icons.mosque, color: Color(0xFFD4AF37), size: 36),
           ),
           const SizedBox(height: 16),
           Text(
@@ -261,23 +220,20 @@ class _HomeScreenState extends State<HomeScreen>
             style: TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w700,
-              color: isDark ? Colors.white : AppConstants.darkText,
-              fontFamily: 'Cairo',
+              color: isDark ? Colors.white : const Color(0xFF1A1A2E),
             ),
           ),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.location_on,
-                  size: 16, color: AppConstants.primaryGreen),
+              const Icon(Icons.location_on, size: 16, color: Color(0xFF1B4332)),
               const SizedBox(width: 4),
               Text(
                 settingsProvider.cityName,
                 style: TextStyle(
                   fontSize: 14,
-                  color: isDark ? Colors.white70 : AppConstants.primaryGreen,
-                  fontFamily: 'Cairo',
+                  color: isDark ? Colors.white70 : const Color(0xFF1B4332),
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -289,7 +245,6 @@ class _HomeScreenState extends State<HomeScreen>
             style: TextStyle(
               fontSize: 13,
               color: isDark ? Colors.white54 : Colors.grey,
-              fontFamily: 'Cairo',
             ),
           ),
         ],
@@ -297,22 +252,13 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  List<Widget> _buildPrayerCards(
-    SettingsProvider settingsProvider,
-    bool isDark,
-    bool isAr,
-    String lang,
-  ) {
+  List<Widget> _buildPrayerCards(SettingsProvider settingsProvider, bool isDark, bool isAr, String lang) {
     if (_prayerTimes == null) return [];
-
     final prayers = _prayerTimes!.getAllPrayers();
-    final now = DateTime.now();
-
     return prayers.asMap().entries.map((entry) {
       final index = entry.key;
       final prayer = entry.value;
       final isNext = index == _nextPrayerIndex;
-
       return PrayerTimeCard(
         prayer: prayer,
         isNext: isNext,
