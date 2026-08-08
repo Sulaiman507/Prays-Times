@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../providers/settings_provider.dart';
 import '../providers/theme_provider.dart';
 import '../utils/cities_data.dart';
-import '../utils/app_constants.dart';
 
 class CitySelectionScreen extends StatefulWidget {
   const CitySelectionScreen({super.key});
@@ -51,7 +50,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
       appBar: AppBar(
         title: Text(
           isAr ? 'اختر المدينة' : 'Select City',
-          style: const TextStyle(fontFamily: 'Cairo', fontWeight: FontWeight.w700),
+          style: const TextStyle(fontWeight: FontWeight.w700),
         ),
         leading: IconButton(
           icon: Icon(isAr ? Icons.arrow_forward : Icons.arrow_back),
@@ -62,11 +61,10 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
         opacity: _fadeController,
         child: Column(
           children: [
-            // Search bar
             Container(
               margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: isDark ? AppConstants.darkCard : Colors.white,
+                color: isDark ? const Color(0xFF161B22) : Colors.white,
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
@@ -80,13 +78,10 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
                   hintText: isAr ? 'بحث...' : 'Search...',
                   hintStyle: TextStyle(
                     color: isDark ? Colors.white38 : Colors.grey,
-                    fontFamily: 'Cairo',
                   ),
-                  prefixIcon: Icon(Icons.search,
-                      color: AppConstants.primaryGreen.withOpacity(0.6)),
+                  prefixIcon: const Icon(Icons.search, color: Color(0xFF1B4332)),
                   border: InputBorder.none,
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 ),
                 onChanged: (value) {
                   setState(() {
@@ -96,8 +91,6 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
                 },
               ),
             ),
-
-            // Country chips
             if (_searchQuery.isEmpty)
               SizedBox(
                 height: 50,
@@ -113,26 +106,20 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            _selectedCountry =
-                                isSelected ? null : country;
+                            _selectedCountry = isSelected ? null : country;
                           });
                         },
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
                             color: isSelected
-                                ? AppConstants.primaryGreen
-                                : (isDark
-                                    ? AppConstants.darkCard
-                                    : Colors.white),
+                                ? const Color(0xFF1B4332)
+                                : (isDark ? const Color(0xFF161B22) : Colors.white),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
                               color: isSelected
-                                  ? AppConstants.primaryGreen
-                                  : (isDark
-                                      ? Colors.white24
-                                      : Colors.grey.shade300),
+                                  ? const Color(0xFF1B4332)
+                                  : (isDark ? Colors.white24 : Colors.grey.shade300),
                             ),
                           ),
                           child: Text(
@@ -142,10 +129,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
                               fontWeight: FontWeight.w600,
                               color: isSelected
                                   ? Colors.white
-                                  : (isDark
-                                      ? Colors.white70
-                                      : Colors.grey.shade700),
-                              fontFamily: 'Cairo',
+                                  : (isDark ? Colors.white70 : Colors.grey.shade700),
                             ),
                           ),
                         ),
@@ -154,10 +138,7 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
                   },
                 ),
               ),
-
             const SizedBox(height: 8),
-
-            // Cities list
             Expanded(
               child: cities.isEmpty
                   ? Center(
@@ -165,7 +146,6 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
                         isAr ? 'لا توجد نتائج' : 'No results found',
                         style: TextStyle(
                           color: isDark ? Colors.white54 : Colors.grey,
-                          fontFamily: 'Cairo',
                           fontSize: 16,
                         ),
                       ),
@@ -174,15 +154,11 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
                       itemCount: cities.length,
                       itemBuilder: (context, index) {
                         final city = cities[index];
-                        final cityName =
-                            isAr ? city.nameAr : city.nameEn;
-                        final countryName =
-                            isAr ? city.countryAr : city.countryEn;
+                        final cityName = isAr ? city.nameAr : city.nameEn;
+                        final countryName = isAr ? city.countryAr : city.countryEn;
                         final isCurrentCity =
-                            settingsProvider.selectedCity.latitude ==
-                                    city.latitude &&
-                                settingsProvider.selectedCity.longitude ==
-                                    city.longitude;
+                            settingsProvider.selectedCity.latitude == city.latitude &&
+                                settingsProvider.selectedCity.longitude == city.longitude;
 
                         return TweenAnimationBuilder<double>(
                           tween: Tween(begin: 0.0, end: 1.0),
@@ -204,17 +180,12 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: isCurrentCity
-                                    ? AppConstants.gold.withOpacity(0.2)
-                                    : AppConstants.primaryGreen
-                                        .withOpacity(isDark ? 0.15 : 0.1),
+                                    ? const Color(0xFFD4AF37).withOpacity(0.2)
+                                    : const Color(0xFF1B4332).withOpacity(isDark ? 0.15 : 0.1),
                               ),
                               child: Icon(
-                                isCurrentCity
-                                    ? Icons.check_circle
-                                    : Icons.location_on_outlined,
-                                color: isCurrentCity
-                                    ? AppConstants.gold
-                                    : AppConstants.primaryGreen,
+                                isCurrentCity ? Icons.check_circle : Icons.location_on_outlined,
+                                color: isCurrentCity ? const Color(0xFFD4AF37) : const Color(0xFF1B4332),
                                 size: 22,
                               ),
                             ),
@@ -223,20 +194,14 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
-                                color: isDark
-                                    ? Colors.white
-                                    : AppConstants.darkText,
-                                fontFamily: 'Cairo',
+                                color: isDark ? Colors.white : const Color(0xFF1A1A2E),
                               ),
                             ),
                             subtitle: Text(
                               countryName,
                               style: TextStyle(
                                 fontSize: 12,
-                                color: isDark
-                                    ? Colors.white54
-                                    : Colors.grey,
-                                fontFamily: 'Cairo',
+                                color: isDark ? Colors.white54 : Colors.grey,
                               ),
                             ),
                             onTap: () {
@@ -257,7 +222,6 @@ class _CitySelectionScreenState extends State<CitySelectionScreen>
   List<City> _getFilteredCities(String lang) {
     final allCities = CitiesData.getAllCities();
     if (_searchQuery.isEmpty) return allCities;
-
     return allCities.where((city) {
       final name = lang == 'ar' ? city.nameAr : city.nameEn;
       final country = lang == 'ar' ? city.countryAr : city.countryEn;
