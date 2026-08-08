@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../utils/app_constants.dart';
 
 class AnimatedBackground extends StatefulWidget {
   final bool isDark;
@@ -57,20 +56,19 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: widget.isDark
-                  ? [
-                      const Color(0xFF0D1117),
-                      const Color(0xFF161B22),
-                      const Color(0xFF0D1117),
+                  ? const [
+                      Color(0xFF0D1117),
+                      Color(0xFF161B22),
+                      Color(0xFF0D1117),
                     ]
-                  : [
-                      const Color(0xFFF0F4F0),
-                      const Color(0xFFE8F0E8),
-                      const Color(0xFFF0F4F0),
+                  : const [
+                      Color(0xFFF0F4F0),
+                      Color(0xFFE8F0E8),
+                      Color(0xFFF0F4F0),
                     ],
             ),
           ),
         ),
-        // Animated circles
         AnimatedBuilder(
           animation: _controller1,
           builder: (context, child) {
@@ -84,7 +82,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      AppConstants.primaryGreen.withOpacity(widget.isDark ? 0.08 : 0.06),
+                      const Color(0xFF1B4332).withOpacity(widget.isDark ? 0.08 : 0.06),
                       Colors.transparent,
                     ],
                   ),
@@ -106,7 +104,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      AppConstants.gold.withOpacity(widget.isDark ? 0.06 : 0.08),
+                      const Color(0xFFD4AF37).withOpacity(widget.isDark ? 0.06 : 0.08),
                       Colors.transparent,
                     ],
                   ),
@@ -128,7 +126,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      AppConstants.secondaryGreen.withOpacity(widget.isDark ? 0.05 : 0.04),
+                      const Color(0xFF2D6A4F).withOpacity(widget.isDark ? 0.05 : 0.04),
                       Colors.transparent,
                     ],
                   ),
@@ -137,13 +135,12 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
             );
           },
         ),
-        // Islamic geometric pattern overlay
         Positioned.fill(
           child: CustomPaint(
             painter: _IslamicPatternPainter(
               color: widget.isDark
                   ? Colors.white.withOpacity(0.02)
-                  : AppConstants.primaryGreen.withOpacity(0.03),
+                  : const Color(0xFF1B4332).withOpacity(0.03),
             ),
           ),
         ),
@@ -168,7 +165,6 @@ class _IslamicPatternPainter extends CustomPainter {
     const spacing = 40.0;
     for (double x = 0; x < size.width; x += spacing) {
       for (double y = 0; y < size.height; y += spacing) {
-        // Draw 8-pointed star pattern
         final center = Offset(x + spacing / 2, y + spacing / 2);
         final radius = spacing / 3;
 
