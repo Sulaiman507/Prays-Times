@@ -44,27 +44,27 @@ class PrayerTimeCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         decoration: BoxDecoration(
           gradient: isNext
-              ? LinearGradient(
+              ? const LinearGradient(
                   colors: [
-                    AppConstants.primaryGreen.withOpacity(0.9),
-                    AppConstants.secondaryGreen.withOpacity(0.8),
+                    Color(0xFF1B4332),
+                    Color(0xFF2D6A4F),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 )
               : isDark
-                  ? LinearGradient(
+                  ? const LinearGradient(
                       colors: [
-                        const Color(0xFF161B22),
-                        const Color(0xFF1C2333),
+                        Color(0xFF161B22),
+                        Color(0xFF1C2333),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     )
-                  : LinearGradient(
+                  : const LinearGradient(
                       colors: [
                         Colors.white,
-                        Colors.white.withOpacity(0.95),
+                        Color(0xFFF8F8F8),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -73,14 +73,14 @@ class PrayerTimeCard extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: isNext
-                  ? AppConstants.primaryGreen.withOpacity(0.3)
+                  ? const Color(0xFF1B4332).withOpacity(0.3)
                   : Colors.black.withOpacity(isDark ? 0.3 : 0.08),
               blurRadius: isNext ? 20 : 10,
               offset: const Offset(0, 4),
             ),
           ],
           border: isNext
-              ? Border.all(color: AppConstants.gold.withOpacity(0.5), width: 1.5)
+              ? Border.all(color: const Color(0xFFD4AF37).withOpacity(0.5), width: 1.5)
               : null,
         ),
         child: ListTile(
@@ -92,12 +92,12 @@ class PrayerTimeCard extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isNext
-                  ? AppConstants.gold.withOpacity(0.2)
-                  : AppConstants.primaryGreen.withOpacity(isDark ? 0.2 : 0.1),
+                  ? const Color(0xFFD4AF37).withOpacity(0.2)
+                  : const Color(0xFF1B4332).withOpacity(isDark ? 0.2 : 0.1),
             ),
             child: Icon(
               _getPrayerIcon(name),
-              color: isNext ? AppConstants.gold : AppConstants.primaryGreen,
+              color: isNext ? const Color(0xFFD4AF37) : const Color(0xFF1B4332),
               size: 22,
             ),
           ),
@@ -110,8 +110,7 @@ class PrayerTimeCard extends StatelessWidget {
                   ? Colors.white
                   : isDark
                       ? Colors.white
-                      : AppConstants.darkText,
-              fontFamily: 'Cairo',
+                      : const Color(0xFF1A1A2E),
             ),
           ),
           subtitle: isNext
@@ -119,8 +118,7 @@ class PrayerTimeCard extends StatelessWidget {
                   locale == 'ar' ? 'الصلاة القادمة' : 'Next Prayer',
                   style: TextStyle(
                     fontSize: 12,
-                    color: AppConstants.gold.withOpacity(0.9),
-                    fontFamily: 'Cairo',
+                    color: const Color(0xFFD4AF37).withOpacity(0.9),
                   ),
                 )
               : null,
@@ -130,11 +128,10 @@ class PrayerTimeCard extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.w700,
               color: isNext
-                  ? AppConstants.gold
+                  ? const Color(0xFFD4AF37)
                   : isDark
                       ? Colors.white.withOpacity(0.9)
-                      : AppConstants.primaryGreen,
-              fontFamily: 'Cairo',
+                      : const Color(0xFF1B4332),
               letterSpacing: 1,
             ),
           ),
