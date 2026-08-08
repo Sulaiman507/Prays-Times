@@ -10,7 +10,6 @@ import '../models/prayer_time_model.dart';
 import '../widgets/prayer_time_card.dart';
 import '../widgets/next_prayer_widget.dart';
 import '../widgets/animated_background.dart';
-import '../l10n/app_strings.dart';
 import 'settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -114,8 +113,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   String _getNextPrayerName(String lang) {
     final names = lang == 'ar'
-        ? AppStrings.prayerNamesAr
-        : AppStrings.prayerNamesEn;
+        ? AppConstants.prayerNamesAr
+        : AppConstants.prayerNamesEn;
     return names[_nextPrayerIndex];
   }
 
@@ -182,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen>
                   opacity: _headerFade,
                   child: SlideTransition(
                     position: _headerSlide,
-                    child: _buildHeader(context, isDark, isAr, lang),
+                    child: _buildHeader(context, settingsProvider, isDark, isAr, lang),
                   ),
                 ),
 
@@ -197,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen>
 
                 // Prayer Times List
                 if (_prayerTimes != null)
-                  ..._buildPrayerCards(isDark, isAr, lang),
+                  ..._buildPrayerCards(settingsProvider, isDark, isAr, lang),
 
                 const SizedBox(height: 20),
               ],
@@ -219,7 +218,12 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildHeader(
-      BuildContext context, bool isDark, bool isAr, String lang) {
+    BuildContext context,
+    SettingsProvider settingsProvider,
+    bool isDark,
+    bool isAr,
+    String lang,
+  ) {
     return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -231,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen>
             height: 70,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 colors: [
                   AppConstants.primaryGreen,
                   AppConstants.secondaryGreen,
@@ -265,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.location_on,
+              const Icon(Icons.location_on,
                   size: 16, color: AppConstants.primaryGreen),
               const SizedBox(width: 4),
               Text(
@@ -293,7 +297,12 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  List<Widget> _buildPrayerCards(bool isDark, bool isAr, String lang) {
+  List<Widget> _buildPrayerCards(
+    SettingsProvider settingsProvider,
+    bool isDark,
+    bool isAr,
+    String lang,
+  ) {
     if (_prayerTimes == null) return [];
 
     final prayers = _prayerTimes!.getAllPrayers();
@@ -303,7 +312,6 @@ class _HomeScreenState extends State<HomeScreen>
       final index = entry.key;
       final prayer = entry.value;
       final isNext = index == _nextPrayerIndex;
-      final isPast = now.isAfter(prayer.time);
 
       return PrayerTimeCard(
         prayer: prayer,
