@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../utils/app_constants.dart';
 
 class NextPrayerWidget extends StatefulWidget {
   final String nextPrayerName;
@@ -78,10 +77,10 @@ class _NextPrayerWidgetState extends State<NextPrayerWidget>
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [
-            AppConstants.primaryGreen,
-            AppConstants.secondaryGreen,
+            Color(0xFF1B4332),
+            Color(0xFF2D6A4F),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -89,7 +88,7 @@ class _NextPrayerWidgetState extends State<NextPrayerWidget>
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: AppConstants.primaryGreen.withOpacity(0.4),
+            color: const Color(0xFF1B4332).withOpacity(0.4),
             blurRadius: 30,
             offset: const Offset(0, 10),
           ),
@@ -100,14 +99,13 @@ class _NextPrayerWidgetState extends State<NextPrayerWidget>
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.access_time_filled, color: AppConstants.gold, size: 20),
+              const Icon(Icons.access_time_filled, color: Color(0xFFD4AF37), size: 20),
               const SizedBox(width: 8),
               Text(
                 widget.locale == 'ar' ? 'الصلاة القادمة' : 'Next Prayer',
-                style: TextStyle(
-                  color: AppConstants.gold.withOpacity(0.9),
+                style: const TextStyle(
+                  color: Color(0xFFD4AF37),
                   fontSize: 14,
-                  fontFamily: 'Cairo',
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -120,7 +118,6 @@ class _NextPrayerWidgetState extends State<NextPrayerWidget>
               color: Colors.white,
               fontSize: 28,
               fontWeight: FontWeight.w700,
-              fontFamily: 'Cairo',
             ),
           ),
           const SizedBox(height: 16),
@@ -138,17 +135,16 @@ class _NextPrayerWidgetState extends State<NextPrayerWidget>
                 color: Colors.white.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: AppConstants.gold.withOpacity(0.3),
+                  color: const Color(0xFFD4AF37).withOpacity(0.3),
                   width: 1,
                 ),
               ),
               child: Text(
                 _remaining,
                 style: const TextStyle(
-                  color: AppConstants.gold,
+                  color: Color(0xFFD4AF37),
                   fontSize: 32,
                   fontWeight: FontWeight.w700,
-                  fontFamily: 'Cairo',
                   letterSpacing: 3,
                 ),
               ),
